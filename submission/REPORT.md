@@ -37,11 +37,11 @@
 
 | Nội dung                | Baseline  | Kết quả cuối | Nhận xét |
 | ----------------------- | --------- | ------------ | -------- |
-| `validate_logs.py`      | 30/100    |              |          |
+| `validate_logs.py`      | 30/100    | 100/100      |          |
 | `validate_dashboard.py` | 6/6 panel |              |          |
 | `pytest`                | 22 passed |              |          |
 | Số traces hợp lệ        | 0         |              |          |
-| Số PII leak             | 0         |              |          |
+| Số PII leak             | 0         | 0            |          |
 | Latency P95 / TTFT P95  | N/A       |              |          |
 | Retrieval success rate  | N/A       |              |          |
 
@@ -61,7 +61,7 @@
 - **Version/label baseline:**
 - **Version/label candidate:**
 - **Trace ID của mỗi version:**
-- **Cách promote và rollback `production`:**
+- **Cách promote và rollback production:**
 
 ## 6. Dashboard, SLO và alerts
 
@@ -93,10 +93,10 @@
 
 ## 9. Checklist trước khi nộp
 
-- [ ] Kết quả và evidence thuộc commit SHA cuối.
-- [ ] Tất cả ảnh/output mở được bằng đường dẫn tương đối.
-- [ ] Incident evidence nối đúng metric → log → trace.
-- [ ] Trace/prompt evidence thuộc project Langfuse cá nhân và ảnh không lộ key/secret.
-- [ ] Repository chạy lại được theo README.
-- [ ] Không có secret, API key, PII thô hoặc evidence của người khác/lớp khác.
-- [ ] URL repo và commit SHA cuối đã được nộp trên LMS/Codelabs.
+- Kết quả và evidence thuộc commit SHA cuối.
+- Tất cả ảnh/output mở được bằng đường dẫn tương đối.
+- Incident evidence nối đúng metric → log → trace.
+- Trace/prompt evidence thuộc project Langfuse cá nhân và ảnh không lộ key/secret.
+- Repository chạy lại được theo README.
+- Không có secret, API key, PII thô hoặc evidence của người khác/lớp khác.
+- URL repo và commit SHA cuối đã được nộp trên LMS/Codelabs.
