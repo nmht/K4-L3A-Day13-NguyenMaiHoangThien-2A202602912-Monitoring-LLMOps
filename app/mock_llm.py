@@ -5,7 +5,7 @@ import time
 from dataclasses import dataclass
 
 from .incidents import STATE
-
+from .tracing import observe
 
 @dataclass
 class FakeUsage:
@@ -49,11 +49,14 @@ class FakeLLM:
                 model=self.model,
                 input=prompt,
                 output=answer,
-                usage={
+                usage_details={
                     "input": input_tokens,
                     "output": output_tokens,
+                    "total": input_tokens + output_tokens,
                 },
-                cost=cost_usd
+                cost_details={
+                    "total": cost_usd,
+                }
             )
             
         return FakeResponse(
