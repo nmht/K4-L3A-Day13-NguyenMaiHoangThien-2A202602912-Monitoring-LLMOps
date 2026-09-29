@@ -25,6 +25,7 @@ class FakeLLM:
     def __init__(self, model: str = "claude-sonnet-4-5") -> None:
         self.model = model
 
+    @observe(as_type="generation", name="llm_generation")
     def generate(self, prompt: str) -> FakeResponse:
         started = time.perf_counter()
         time.sleep(0.05)  # mô phỏng thời điểm token đầu tiên sẵn sàng
@@ -38,6 +39,23 @@ class FakeLLM:
             "Starter answer. You should improve this output logic and add better quality checks. "
             "Use retrieved context and keep responses concise."
         )
+        
+        cost_usd = (input_tokens / 1_000_000) * 3 + (output_tokens / 1_000_000) * 15
+        
+        from .tracing import get_langfuse_client
+        client = get_langfuse_client()
+        if hasattr(client, "update_current_generation"):
+            client.update_current_generation(
+                model=self.model,
+                input=prompt,
+                output=answer,
+                usage={
+                    "input": input_tokens,
+                    "output": output_tokens,
+                },
+                cost=cost_usd
+            )
+            
         return FakeResponse(
             text=answer,
             usage=FakeUsage(input_tokens, output_tokens),
